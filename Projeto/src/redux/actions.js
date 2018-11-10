@@ -22,6 +22,12 @@ export function logaUsuario(dados) {
         api.defaults.headers.common['Authorization'] = response.data.usuario.token
         dispatch({ type: 'LOGA_USUARIO', dados: response.data.usuario })
       })
+      .catch(error => {
+        console.log(error)
+        if (error.response) {
+          alert(error.response.data.erro)
+        }
+      })
   }
 }
 
