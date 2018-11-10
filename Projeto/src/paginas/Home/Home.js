@@ -17,9 +17,11 @@ class Home extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.carregando) {
-      this.setState({ carregando: false })
-    }
+    this.setState(prevState => {
+      if (prevState.carregando) {
+        return { carregando: false }
+      }
+    })
   }
 
   render() {
@@ -36,20 +38,20 @@ class Home extends Component {
         {this.state.carregando ? (
           <img className="home__carregando" src={carregando} alt="Carregando" />
         ) : (
-          <div>
-            <Postit />
+            <>
+              <Postit />
 
-            <div>
-              {postits.map(postit => (
-                <Postit 
-                  key={postit.id}
-                  id={postit.id}
-                  titulo={postit.titulo}
-                  texto={postit.texto}
-                />
-              ))}
-            </div>
-          </div>
+              <div>
+                {postits.map(postit => (
+                  <Postit 
+                    key={postit.id}
+                    id={postit.id}
+                    titulo={postit.titulo}
+                    texto={postit.texto}
+                  />
+                ))}
+              </div>
+            </>
         )}
       </main>
     )
