@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { listaPostits } from '../../redux/actions'
 import Postit from '../../componentes/Postit/Postit'
 import carregando from './carregando.svg'
 import './Home.css'
@@ -8,7 +9,19 @@ import './Home.css'
 class Home extends Component {
   constructor(props) {
     super(props)
-    this.state = { carregando: false }
+    this.state = { carregando: true }
+  }
+
+  componentDidMount() {
+    // disparar acao que busca e lista os postits da api
+    this.props.listaPostits()
+  }
+
+  componentDidUpdate() {
+    // tirar o carregando da tela
+    if (this.state.carregando) {
+      this.setState({ carregando: false })
+    }
   }
 
   render() {
@@ -42,5 +55,6 @@ class Home extends Component {
 }
 
 export default connect(
-  (state) => ({ usuario: state.usuario, postits: state.postits })
+  (state) => ({ usuario: state.usuario, postits: state.postits }),
+  { listaPostits }
 )(Home)
