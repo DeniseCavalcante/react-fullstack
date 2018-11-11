@@ -13,7 +13,9 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.listaPostits()
+    if (this.props.usuario) {
+      this.props.listaPostits()
+    }
   }
 
   componentDidUpdate() {
